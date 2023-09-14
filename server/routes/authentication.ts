@@ -1,19 +1,18 @@
-const express=require('express')
-const User=require('../models/user.model.ts')
+const express = require('express')
+import {User} from '../models/user.model';
 
 const router=express.Router();
 
-router.post('/signup',async (req,res)=>{
+router.post('/signup',async (req : any,res : any)=>{
     try{
         const user=new User({
-            username:req.body,
-            email:req.body,
-            password:req.body,
+            username:req.body.userName,
+            email:req.body.email,
+            password:req.body.password,
             // following:req.body,
             // profilePic:req.body,
-            gender:req.body,
-            dob:req.body
-            
+            gender:req.body.gender,
+            dob:req.body.dob
         })
 
         await user.save()
@@ -25,3 +24,5 @@ router.post('/signup',async (req,res)=>{
         return res.status(500).json({message : "internal server error"});
     }
 })
+
+module.exports = router;
